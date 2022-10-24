@@ -9,13 +9,21 @@ public class CSVReader {
 
     public static String handle(ArgsName argsName) throws Exception {
         Path file = Paths.get(argsName.get("path"));
+        List<String> fileValues1 = new ArrayList<>();
         List<String> fileValues = new ArrayList<>();
         List<Integer> indexes = new ArrayList<>();
         List<String> text = new ArrayList<>();
 
-        try (var values = new Scanner(file).useDelimiter(";|\\r\\n")) {
+        try (var values = new Scanner(file).useDelimiter(System.lineSeparator())) {
             while (values.hasNext()) {
-                fileValues.add(values.next());
+                fileValues1.add(values.next());
+            }
+        }
+        for (String d : fileValues1) {
+            try (var v = new Scanner(d).useDelimiter(";")) {
+                while (v.hasNext()) {
+                    fileValues.add(v.next());
+                }
             }
         }
 
