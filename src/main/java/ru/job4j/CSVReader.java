@@ -9,14 +9,21 @@ public class CSVReader {
 
     public static void handle(ArgsName argsName) throws Exception {
         Path file = Paths.get(argsName.get("path"));
+        List<String> fileValues1 = new ArrayList<>();
         List<String> fileValues = new ArrayList<>();
         List<Integer> indexes = new ArrayList<>();
         List<String> text = new ArrayList<>();
 
-        try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
-            var words = lines.useDelimiter(";|\r\n");
-            while (words.hasNext()) {
-                fileValues.add(words.next());
+        try (var values = new Scanner(file).useDelimiter(System.lineSeparator())) {
+            while (values.hasNext()) {
+                fileValues1.add(values.next());
+            }
+        }
+        for (String d : fileValues1) {
+            try (var v = new Scanner(d).useDelimiter(";")) {
+                while (v.hasNext()) {
+                    fileValues.add(v.next());
+                }
             }
         }
         try (var filterValues = new Scanner(argsName.get("filter")).useDelimiter(",")) {
