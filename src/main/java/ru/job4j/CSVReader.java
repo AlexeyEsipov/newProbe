@@ -14,7 +14,7 @@ public class CSVReader {
         List<Integer> indexes = new ArrayList<>();
         List<String> text = new ArrayList<>();
 
-        /*List<String> fileValues1 = new ArrayList<>();
+        List<String> fileValues1 = new ArrayList<>();
         String del = argsName.get("delimiter");
         try(var values = new Scanner(file).useDelimiter(System.lineSeparator())) {
             while (values.hasNext()) {
@@ -27,14 +27,8 @@ public class CSVReader {
                     fileValues.add(v.next());
                 }
             }
-        }*/
-
-        try (var lines = new Scanner(file).useDelimiter(System.lineSeparator())) {
-            var words = lines.useDelimiter("(;)|(\r\n)");
-            while (words.hasNext()) {
-                fileValues.add(words.next());
-            }
         }
+
         try (var filterValues = new Scanner(argsName.get("filter")).useDelimiter(",")) {
             while (filterValues.hasNext()) {
                 indexes.add(fileValues.indexOf(filterValues.next()));
